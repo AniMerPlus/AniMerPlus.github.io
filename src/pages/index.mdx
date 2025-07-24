@@ -1,0 +1,173 @@
+---
+layout: ../layouts/Layout.astro
+title: "AniMer+: Unified Pose and Shape Estimation Across Mammalia and Aves via Family-Aware Transformer"
+favicon: favicon.svg
+thumbnail: screenshot.png
+---
+
+import Layout from "../layouts/Layout.astro";
+
+import Header from "../components/Header.astro";
+import Video from "../components/Video.astro";
+import HighlightedSection from "../components/HighlightedSection.astro";
+import SmallCaps from "../components/SmallCaps.astro";
+import Figure from "../components/Figure.astro";
+import Image from "../components/Image.astro";
+import TwoColumns from "../components/TwoColumns.astro";
+import YouTubeVideo from "../components/YouTubeVideo.astro";
+import LaTeX from "../components/LaTeX.astro";
+import VideoCarousel from "../components/VideoCarousel";
+
+import project_page1 from "../assets/Qualitative.mp4"
+import project_page2 from "../assets/CtrlAVES3D.mp4"
+import pipeline from "../assets/animerplus_pipeline.svg";
+import generate_pipeline from "../assets/generate_pipeline.png"
+
+import VideoDemo1 from "../assets/VideoDemo1.mp4"
+import VideoDemo2 from "../assets/VideoDemo2.mp4"
+import VideoDemo3 from "../assets/VideoDemo3.mp4"
+import VideoDemo4 from "../assets/VideoDemo4.mp4"
+
+import CodeBlock from "../components/CodeBlock.astro";
+import Table from "../components/Table.astro";
+export const components = {pre: CodeBlock, table: Table}
+
+<Header
+  title={frontmatter.title}
+  authors={[
+    {
+      name: "Jin Lyu",
+      notes: ["*", "1"],
+      "url": "https://luoxue-star.github.io/AniMer_project_page/",
+    },
+    {
+      name: "Liang An",
+      notes: ["*", "2"],
+      "url": "https://anl13.github.io/",
+    },
+    {
+      name: "Li Lin",
+      notes: ["1"],
+      "url": "https://luoxue-star.github.io/AniMer_project_page/",
+    },
+    {
+      name: "Pujin Cheng",
+      notes: ["1"],
+      "url": "https://luoxue-star.github.io/AniMer_project_page/",
+    },
+    {
+      name: "Yebin Liu",
+      notes: ["†", "2"],
+      "url": "https://liuyebin.com/",
+    },
+    {
+      name: "Xiaoying Tang",
+      notes: ["†", "1"],
+      "url": "https://luoxue-star.github.io/AniMer_project_page/",
+    },
+  ]}
+  institutions={[
+    {
+      name: "Southern University of Science and Technology",
+      notes: ["1"],
+    },
+    {
+      name: "Tsinghua University",
+      notes: ["2"],
+    },
+  ]}
+  conference="Arxiv"
+  notes={[
+    {
+      symbol: "*",
+      text: "Equal Contribution",
+    },
+    {
+      symbol: "†",
+      text: "Corresponding Author",
+    },
+  ]}
+  links={[
+    /*{
+      name: "Paper",
+      url: "https://luoxue-star.github.io/AniMer_project_page/",
+      icon: "fa-solid:file-pdf",
+    },*/
+    {
+      name: "arXiv",
+      url: "https://luoxue-star.github.io/AniMer_project_page/",
+      icon: "academicons:arxiv",
+    },
+    {
+      name: "Code",
+      url: "https://github.com/luoxue-star/AniMerPlus",
+      icon: "mdi:github",
+    },
+    {
+      name: "Hugging Face Demo",
+      url: "https://huggingface.co/spaces/luoxue-star/AniMerPlus",
+      icon: "logos:hugging-face-icon"
+    },
+    {
+      name: "CVPR Version",
+      url: "https://luoxue-star.github.io/AniMer_project_page/",
+      icon: "foundation:previous"
+    }
+  ]}
+  />
+
+<HighlightedSection color="#ffffff">
+<h2>Qualitative Results</h2>
+<Video source={project_page1} />
+</HighlightedSection>
+
+<HighlightedSection color="#ffffff">
+  <h2>Video Demos</h2>
+  <VideoCarousel client:load sources={[VideoDemo3, VideoDemo4, VideoDemo1, VideoDemo2]} />
+</HighlightedSection>
+
+<HighlightedSection color="#ffffff">
+  <h2>Abstact</h2>
+  <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.2rem; line-height: 1.3;">In the era of foundation models, achieving a unified understanding of all dynamic objects using single network has the potential to empower stronger spatial intelligence.
+  Moreover, accurate estimation of animal pose and shape across diverse species is essential for quantitative analysis in biological research. 
+  However, this problem remains underexplored due to the limited network capacity of previous methods and the scarcity of comprehensive multi-species datasets. 
+  To address these limitations, we introduce AniMer+, an extended version of our scalable AniMer framework. 
+  In this paper, we focus on a unified approach for reconstructing mammals (mammalia) and birds (aves). 
+  A key innovation of AniMer+ is its high-capacity, family-aware Vision Transformer (ViT) incorporating a Mixture-of-Experts (MoE) design. 
+  Its architecture partitions network layers into taxa-specific components (for mammalia and aves) and taxa-shared components, enabling efficient learning of both distinct and common anatomical features within a single model. 
+  To overcome the critical shortage of 3D training data, especially for birds, we introduce a diffusion-based conditional image generation pipeline. 
+  This pipeline yields two large-scale synthetic datasets: CtrlAni3D for quadrupeds (about 10k images with pixel-aligned SMAL labels) and CtrlAVES3D (about 7k images with pixel-aligned AVES labels). CtrlAVES3D represents the first large-scale, 
+  3D-annotated dataset for birds, which is crucial for resolving single-view depth ambiguities. 
+  Trained on an aggregated collection of 41.3k mammalian and 12.4k avian images (combining real and synthetic data), 
+  our method demonstrates superior performance over existing approaches across a wide range of benchmarks, including the challenging out-of-domain Animal Kingdom dataset. 
+  Ablation studies confirm the effectiveness of both our novel network architecture and the generated synthetic datasets in enhancing real-world application performance.</p>
+</HighlightedSection>
+
+<HighlightedSection color="#ffffff">
+  <h2>AniMer+</h2>
+  <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.2rem; line-height: 1.3;"> Different from AniMer, AniMer+ can estimate the shape and pose for both mammals and birds.
+    Given an Image <LaTeX inline formula="I \in \mathbb{R}^{H \times W \times 3}"/>, 
+    we first utilize a ViT-MoE encoder to extract image feature tokens <LaTeX inline formula="\mathbf{F} \in \mathbb{R}^{192 \times 1280}"/>, 
+    while the class token interacts with the image to capture information about animal family. 
+    Then, we feed the feature token <LaTeX inline formula="\mathbf{F}"/> into Transformer Decoder to obtain a feature vector <LaTeX inline formula="\boldsymbol{f} \in \mathbb{R}^{1 \times 1280}"/>.
+    Finally, the parameters of the parametric model are regressed using the regression head, and these parameters are fed into the corresponding template to generate the 3D mesh.
+    At the same time, the class token is fed into the predictor head for animal family supervised contrastive learning. 
+    By combining AniMer+ with the dataset generation pipeline, our method can effectively accommodate both mammals and birds, with the potential to generalize to any animal group
+    representable by a parametric model. For more details, please refer our paper.</p>
+  <Figure>
+      <Image source={pipeline} altText="" />
+  </Figure>
+</HighlightedSection>
+
+<HighlightedSection color="#ffffff">
+  <h2>CtrlAni3D Dataset Samples</h2>
+  <Video source={project_page2} />
+</HighlightedSection>
+
+## BibTeX citation
+```bibtex
+
+```
+
+## Credits
+Thanks to [RomanHauksson](https://github.com/RomanHauksson/academic-project-astro-template) for the website template.
