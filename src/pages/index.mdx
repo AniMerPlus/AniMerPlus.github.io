@@ -30,6 +30,7 @@ import VideoDemo4 from "../assets/VideoDemo4.mp4"
 import VideoDemo5 from "../assets/VideoDemo5.mp4"
 import VideoDemo6 from "../assets/VideoDemo6.mp4"
 import VideoDemo7 from "../assets/VideoDemo7.mp4"
+import SupplementaryVideo from "../assets/SupplementaryVideo.mp4"
 
 import CodeBlock from "../components/CodeBlock.astro";
 import Table from "../components/Table.astro";
@@ -98,7 +99,7 @@ export const components = {pre: CodeBlock, table: Table}
     },*/
     {
       name: "arXiv",
-      url: "https://luoxue-star.github.io/AniMer_project_page/",
+      url: "https://animerplus.github.io/",
       icon: "academicons:arxiv",
     },
     {
@@ -120,13 +121,8 @@ export const components = {pre: CodeBlock, table: Table}
   />
 
 <HighlightedSection color="#ffffff">
-<h2>Qualitative Results</h2>
-<Video source={project_page1} />
-</HighlightedSection>
-
-<HighlightedSection color="#ffffff">
-  <h2>Video Demos</h2>
-  <VideoCarousel client:load sources={[VideoDemo3, VideoDemo4, VideoDemo5, VideoDemo1, VideoDemo6, VideoDemo2, VideoDemo7]} />
+<h2>Video</h2>
+<Video source={SupplementaryVideo} />
 </HighlightedSection>
 
 <HighlightedSection color="#ffffff">
@@ -160,11 +156,6 @@ export const components = {pre: CodeBlock, table: Table}
   <Figure>
       <Image source={pipeline} altText="" />
   </Figure>
-</HighlightedSection>
-
-<HighlightedSection color="#ffffff">
-  <h2>CtrlAni3D Dataset Samples</h2>
-  <Video source={project_page2} />
 </HighlightedSection>
 
 ## BibTeX citation
